@@ -1,0 +1,693 @@
+{
+    "name": null, 
+    "system": {
+        "work_end_ckpt_count": 0, 
+        "mem_mode": "timing", 
+        "name": "system", 
+        "init_param": 0, 
+        "membus": {
+            "slave": {
+                "peer": [
+                    "system.system_port", 
+                    "system.l2.mem_side"
+                ], 
+                "role": "SLAVE"
+            }, 
+            "name": "membus", 
+            "clock": 2.5e-09, 
+            "header_cycles": 1, 
+            "width": 64, 
+            "use_default_range": false, 
+            "master": {
+                "peer": [
+                    "system.physmem.port[0]"
+                ], 
+                "role": "MASTER"
+            }, 
+            "cxx_class": "CoherentBus", 
+            "path": "system.membus", 
+            "block_size": 64, 
+            "type": "CoherentBus"
+        }, 
+        "work_begin_ckpt_count": 0, 
+        "load_addr_mask": 1099511627775, 
+        "physmem": {
+            "latency": 8.125e-08, 
+            "in_addr_map": true, 
+            "latency_var": 0.0, 
+            "zero": false, 
+            "conf_table_reported": false, 
+            "cxx_class": "SimpleMemory", 
+            "path": "system.physmem", 
+            "null": false, 
+            "type": "SimpleMemory", 
+            "port": {
+                "peer": [
+                    "system.membus.master[0]"
+                ], 
+                "role": "SLAVE"
+            }, 
+            "name": "physmem"
+        }, 
+        "system_port": {
+            "peer": "system.membus.slave[0]", 
+            "role": "MASTER"
+        }, 
+        "cpu": [
+            {
+                "SQEntries": 8, 
+                "smtLSQThreshold": 100, 
+                "fetchTrapLatency": 1, 
+                "iewToRenameDelay": 1, 
+                "itb": {
+                    "name": "itb", 
+                    "cxx_class": "ArmISA::TLB", 
+                    "walker": {
+                        "max_backoff": 100000, 
+                        "name": "walker", 
+                        "min_backoff": 0, 
+                        "cxx_class": "ArmISA::TableWalker", 
+                        "path": "system.cpu.itb.walker", 
+                        "type": "ArmTableWalker", 
+                        "port": {
+                            "peer": "system.tol2bus.slave[2]", 
+                            "role": "MASTER"
+                        }
+                    }, 
+                    "path": "system.cpu.itb", 
+                    "type": "ArmTLB", 
+                    "size": 64
+                }, 
+                "localHistoryBits": 1, 
+                "fetchWidth": 2, 
+                "max_loads_all_threads": 0, 
+                "fetchToDecodeDelay": 1, 
+                "renameToDecodeDelay": 1, 
+                "localHistoryTableSize": 1, 
+                "do_quiesce": true, 
+                "commitToFetchDelay": 1, 
+                "max_insts_all_threads": 0, 
+                "decodeWidth": 2, 
+                "globalHistoryBits": 12, 
+                "needsTSO": false, 
+                "localPredictorSize": 2, 
+                "smtIQThreshold": 100, 
+                "workload": [
+                    {
+                        "gid": 100, 
+                        "ppid": 99, 
+                        "name": "workload", 
+                        "pid": 100, 
+                        "simpoint": 0, 
+                        "egid": 100, 
+                        "euid": 100, 
+                        "cxx_class": "LiveProcess", 
+                        "path": "system.cpu.workload", 
+                        "max_stack_size": 67108864, 
+                        "type": "LiveProcess", 
+                        "uid": 100
+                    }
+                ], 
+                "name": "cpu", 
+                "SSITSize": 1024, 
+                "activity": 0, 
+                "max_loads_any_thread": 0, 
+                "tracer": {
+                    "path": "system.cpu.tracer", 
+                    "type": "ExeTracer", 
+                    "name": "tracer", 
+                    "cxx_class": "Trace::ExeTracer"
+                }, 
+                "decodeToFetchDelay": 1, 
+                "renameWidth": 2, 
+                "wbDepth": 8, 
+                "squashWidth": 2, 
+                "function_trace": false, 
+                "instShiftAmt": 2, 
+                "backComSize": 5, 
+                "decodeToRenameDelay": 1, 
+                "clock": 1.25e-09, 
+                "store_set_clear_period": 250000, 
+                "numPhysIntRegs": 62, 
+                "fuPool": {
+                    "path": "system.cpu.fuPool", 
+                    "FUList": [
+                        {
+                            "count": 1, 
+                            "opList": [
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 1, 
+                                    "name": "opList", 
+                                    "opClass": "IntAlu", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList0.opList", 
+                                    "type": "OpDesc"
+                                }
+                            ], 
+                            "name": "FUList0", 
+                            "cxx_class": "FUDesc", 
+                            "path": "system.cpu.fuPool.FUList0", 
+                            "type": "FUDesc"
+                        }, 
+                        {
+                            "count": 1, 
+                            "opList": [
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 1, 
+                                    "name": "opList0", 
+                                    "opClass": "IntAlu", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList1.opList0", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 4, 
+                                    "name": "opList1", 
+                                    "opClass": "IntMult", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList1.opList1", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 12, 
+                                    "opLat": 12, 
+                                    "name": "opList2", 
+                                    "opClass": "IntDiv", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList1.opList2", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 3, 
+                                    "name": "opList3", 
+                                    "opClass": "IprAccess", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList1.opList3", 
+                                    "type": "OpDesc"
+                                }
+                            ], 
+                            "name": "FUList1", 
+                            "cxx_class": "FUDesc", 
+                            "path": "system.cpu.fuPool.FUList1", 
+                            "type": "FUDesc"
+                        }, 
+                        {
+                            "count": 1, 
+                            "opList": [
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 3, 
+                                    "name": "opList00", 
+                                    "opClass": "SimdAdd", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList00", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 6, 
+                                    "name": "opList01", 
+                                    "opClass": "SimdAddAcc", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList01", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 3, 
+                                    "name": "opList02", 
+                                    "opClass": "SimdAlu", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList02", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 4, 
+                                    "name": "opList03", 
+                                    "opClass": "SimdCmp", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList03", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 6, 
+                                    "name": "opList04", 
+                                    "opClass": "SimdCvt", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList04", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 3, 
+                                    "name": "opList05", 
+                                    "opClass": "SimdMisc", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList05", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 7, 
+                                    "name": "opList06", 
+                                    "opClass": "SimdMult", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList06", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 7, 
+                                    "name": "opList07", 
+                                    "opClass": "SimdMultAcc", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList07", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 3, 
+                                    "name": "opList08", 
+                                    "opClass": "SimdShift", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList08", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 5, 
+                                    "name": "opList09", 
+                                    "opClass": "SimdShiftAcc", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList09", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 5, 
+                                    "name": "opList10", 
+                                    "opClass": "SimdSqrt", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList10", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 4, 
+                                    "name": "opList11", 
+                                    "opClass": "SimdFloatAdd", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList11", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 1, 
+                                    "name": "opList12", 
+                                    "opClass": "SimdFloatAlu", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList12", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 1, 
+                                    "name": "opList13", 
+                                    "opClass": "SimdFloatCmp", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList13", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 4, 
+                                    "name": "opList14", 
+                                    "opClass": "SimdFloatCvt", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList14", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 15, 
+                                    "opLat": 15, 
+                                    "name": "opList15", 
+                                    "opClass": "SimdFloatDiv", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList15", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 1, 
+                                    "name": "opList16", 
+                                    "opClass": "SimdFloatMisc", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList16", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 5, 
+                                    "name": "opList17", 
+                                    "opClass": "SimdFloatMult", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList17", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 8, 
+                                    "name": "opList18", 
+                                    "opClass": "SimdFloatMultAcc", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList18", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 17, 
+                                    "opLat": 17, 
+                                    "name": "opList19", 
+                                    "opClass": "SimdFloatSqrt", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList19", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 4, 
+                                    "name": "opList20", 
+                                    "opClass": "FloatAdd", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList20", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 2, 
+                                    "name": "opList21", 
+                                    "opClass": "FloatCmp", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList21", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 4, 
+                                    "name": "opList22", 
+                                    "opClass": "FloatCvt", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList22", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 20, 
+                                    "opLat": 20, 
+                                    "name": "opList23", 
+                                    "opClass": "FloatDiv", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList23", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 24, 
+                                    "opLat": 24, 
+                                    "name": "opList24", 
+                                    "opClass": "FloatSqrt", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList24", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 6, 
+                                    "name": "opList25", 
+                                    "opClass": "FloatMult", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList25", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 1, 
+                                    "name": "opList26", 
+                                    "opClass": "MemRead", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList26", 
+                                    "type": "OpDesc"
+                                }, 
+                                {
+                                    "issueLat": 1, 
+                                    "opLat": 1, 
+                                    "name": "opList27", 
+                                    "opClass": "MemWrite", 
+                                    "cxx_class": "OpDesc", 
+                                    "path": "system.cpu.fuPool.FUList2.opList27", 
+                                    "type": "OpDesc"
+                                }
+                            ], 
+                            "name": "FUList2", 
+                            "cxx_class": "FUDesc", 
+                            "path": "system.cpu.fuPool.FUList2", 
+                            "type": "FUDesc"
+                        }
+                    ], 
+                    "type": "FUPool", 
+                    "name": "fuPool", 
+                    "cxx_class": "FUPool"
+                }, 
+                "renameToFetchDelay": 1, 
+                "icache": {
+                    "cxx_class": "BaseCache", 
+                    "write_buffers": 8, 
+                    "is_top_level": true, 
+                    "block_size": 64, 
+                    "size": 32768, 
+                    "latency": 1.25e-09, 
+                    "trace_addr": 0, 
+                    "max_miss_count": 0, 
+                    "mem_side": {
+                        "peer": "system.tol2bus.slave[0]", 
+                        "role": "MASTER"
+                    }, 
+                    "mshrs": 2, 
+                    "forward_snoops": true, 
+                    "tgts_per_mshr": 8, 
+                    "cpu_side": {
+                        "peer": "system.cpu.icache_port", 
+                        "role": "SLAVE"
+                    }, 
+                    "prefetch_on_access": false, 
+                    "path": "system.cpu.icache", 
+                    "prioritizeRequests": false, 
+                    "name": "icache", 
+                    "type": "BaseCache", 
+                    "hash_delay": 1, 
+                    "subblock_size": 0, 
+                    "assoc": 4, 
+                    "two_queue": false
+                }, 
+                "path": "system.cpu", 
+                "numRobs": 1, 
+                "trapLatency": 13, 
+                "max_insts_any_thread": 0, 
+                "smtROBThreshold": 100, 
+                "numIQEntries": 32, 
+                "dcache_port": {
+                    "peer": "system.cpu.dcache.cpu_side", 
+                    "role": "MASTER"
+                }, 
+                "LFSTSize": 1024, 
+                "renameToIEWDelay": 2, 
+                "iewToFetchDelay": 1, 
+                "do_statistics_insts": true, 
+                "dispatchWidth": 2, 
+                "dcache": {
+                    "cxx_class": "BaseCache", 
+                    "prefetcher": {
+                        "data_accesses_only": false, 
+                        "latency": 1.25e-09, 
+                        "use_master_id": true, 
+                        "name": "prefetcher", 
+                        "degree": 1, 
+                        "serial_squash": false, 
+                        "cxx_class": "StridePrefetcher", 
+                        "path": "system.cpu.dcache.prefetcher", 
+                        "type": "StridePrefetcher", 
+                        "cross_pages": false, 
+                        "size": 8
+                    }, 
+                    "write_buffers": 16, 
+                    "is_top_level": true, 
+                    "block_size": 64, 
+                    "size": 32768, 
+                    "latency": 1.25e-09, 
+                    "trace_addr": 0, 
+                    "max_miss_count": 0, 
+                    "mem_side": {
+                        "peer": "system.tol2bus.slave[1]", 
+                        "role": "MASTER"
+                    }, 
+                    "mshrs": 4, 
+                    "forward_snoops": true, 
+                    "tgts_per_mshr": 8, 
+                    "cpu_side": {
+                        "peer": "system.cpu.dcache_port", 
+                        "role": "SLAVE"
+                    }, 
+                    "prefetch_on_access": true, 
+                    "path": "system.cpu.dcache", 
+                    "prioritizeRequests": false, 
+                    "name": "dcache", 
+                    "type": "BaseCache", 
+                    "hash_delay": 1, 
+                    "subblock_size": 0, 
+                    "assoc": 4, 
+                    "two_queue": false
+                }, 
+                "commitToDecodeDelay": 1, 
+                "issueWidth": 2, 
+                "LSQCheckLoads": true, 
+                "commitToRenameDelay": 1, 
+                "cachePorts": 200, 
+                "numPhysFloatRegs": 256, 
+                "numThreads": 1, 
+                "type": "DerivO3CPU", 
+                "wbWidth": 2, 
+                "defer_registration": false, 
+                "interrupts": {
+                    "path": "system.cpu.interrupts", 
+                    "type": "ArmInterrupts", 
+                    "name": "interrupts", 
+                    "cxx_class": "ArmISA::Interrupts"
+                }, 
+                "RASSize": 8, 
+                "issueToExecuteDelay": 1, 
+                "dtb": {
+                    "name": "dtb", 
+                    "cxx_class": "ArmISA::TLB", 
+                    "walker": {
+                        "max_backoff": 100000, 
+                        "name": "walker", 
+                        "min_backoff": 0, 
+                        "cxx_class": "ArmISA::TableWalker", 
+                        "path": "system.cpu.dtb.walker", 
+                        "type": "ArmTableWalker", 
+                        "port": {
+                            "peer": "system.tol2bus.slave[3]", 
+                            "role": "MASTER"
+                        }
+                    }, 
+                    "path": "system.cpu.dtb", 
+                    "type": "ArmTLB", 
+                    "size": 64
+                }, 
+                "numROBEntries": 40, 
+                "forwardComSize": 5, 
+                "BTBTagSize": 18, 
+                "iewToCommitDelay": 1, 
+                "smtNumFetchingThreads": 1, 
+                "renameToROBDelay": 1, 
+                "do_checkpoint_insts": true, 
+                "BTBEntries": 4096, 
+                "cxx_class": "DerivO3CPU", 
+                "commitToIEWDelay": 1, 
+                "commitWidth": 2, 
+                "choicePredictorSize": 4096, 
+                "function_trace_start": 0, 
+                "cpu_id": 0, 
+                "profile": 0.0, 
+                "icache_port": {
+                    "peer": "system.cpu.icache.cpu_side", 
+                    "role": "MASTER"
+                }, 
+                "choiceCtrBits": 2, 
+                "LSQDepCheckShift": 0, 
+                "localCtrBits": 1, 
+                "phase": 0.0, 
+                "globalPredictorSize": 4096, 
+                "iewToDecodeDelay": 1, 
+                "globalCtrBits": 2, 
+                "progress_interval": 0, 
+                "LQEntries": 8
+            }
+        ], 
+        "l2": {
+            "cxx_class": "BaseCache", 
+            "write_buffers": 9, 
+            "is_top_level": false, 
+            "block_size": 64, 
+            "size": 524288, 
+            "latency": 1e-08, 
+            "trace_addr": 0, 
+            "max_miss_count": 0, 
+            "mem_side": {
+                "peer": "system.membus.slave[1]", 
+                "role": "MASTER"
+            }, 
+            "mshrs": 11, 
+            "forward_snoops": true, 
+            "tgts_per_mshr": 8, 
+            "cpu_side": {
+                "peer": "system.tol2bus.master[0]", 
+                "role": "SLAVE"
+            }, 
+            "prefetch_on_access": false, 
+            "path": "system.l2", 
+            "prioritizeRequests": false, 
+            "name": "l2", 
+            "type": "BaseCache", 
+            "hash_delay": 1, 
+            "subblock_size": 0, 
+            "assoc": 8, 
+            "two_queue": false
+        }, 
+        "work_cpus_ckpt_count": 0, 
+        "work_begin_exit_count": 0, 
+        "cxx_class": "System", 
+        "path": "system", 
+        "tol2bus": {
+            "slave": {
+                "peer": [
+                    "system.cpu.icache.mem_side", 
+                    "system.cpu.dcache.mem_side", 
+                    "system.cpu.itb.walker.port", 
+                    "system.cpu.dtb.walker.port"
+                ], 
+                "role": "SLAVE"
+            }, 
+            "name": "tol2bus", 
+            "clock": 1.25e-09, 
+            "header_cycles": 1, 
+            "width": 64, 
+            "use_default_range": false, 
+            "master": {
+                "peer": [
+                    "system.l2.cpu_side"
+                ], 
+                "role": "MASTER"
+            }, 
+            "cxx_class": "CoherentBus", 
+            "path": "system.tol2bus", 
+            "block_size": 64, 
+            "type": "CoherentBus"
+        }, 
+        "work_begin_cpu_id_exit": -1, 
+        "type": "System", 
+        "work_item_id": -1, 
+        "work_end_exit_count": 0, 
+        "num_work_ids": 16
+    }, 
+    "time_sync_period": 0.1, 
+    "time_sync_spin_threshold": 9.999999999999999e-05, 
+    "cxx_class": "Root", 
+    "path": "root", 
+    "time_sync_enable": false, 
+    "type": "Root", 
+    "full_system": false
+}
