@@ -4,7 +4,6 @@ matplotlib.use('Agg')  # Utiliser le backend non interactif pour matplotlib
 import matplotlib.pyplot as plt
 
 taille_L1_A7 = [1024, 2048, 4096, 8192, 16384]
-
 taille_L1_A15= [2048, 4096, 8192, 16384,32768]
 
 def calcul_surface_L1(cortex, taille_L1):
@@ -42,7 +41,7 @@ def calcul_surface_L1(cortex, taille_L1):
 
         # Execute cacti et enregistre la sortie terminal
         output_terminal = os.popen("./cacti -infile cache.cfg").read()
-        
+
         for line in output_terminal.split("\n"):
             if "Cache height x width (mm):" in line:
                 dimensions = line.split(":")[1].strip()
